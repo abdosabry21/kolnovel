@@ -9,6 +9,16 @@ class MrSpider(scrapy.Spider):
 
 
     def parse(self, response):
+        
+        chapter_title=response.xpath('//blockquote/p/text()').get()
+        print(chapter_title)
+        
+        
+        
+        
+        
+        
+        
         content=response.xpath('//div[@id="kol_content"]/p/text()')
         a=[]
         for i in content:
@@ -37,7 +47,12 @@ class MrSpider(scrapy.Spider):
         
         print("########################")
         try:
-            with open(f'{numbers}.txt', 'w', encoding='utf-8') as f:
+            with open(f'{numbers}.txt', 'a', encoding='utf-8') as f:
+                f.write(chapter_title)
+        except:
+            pass
+        try:
+            with open(f'{numbers}.txt', 'a', encoding='utf-8') as f:
                 f.write(list_as_string)
         except:
             pass
